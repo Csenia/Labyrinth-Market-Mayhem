@@ -10,16 +10,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float sensetivity = 5f;
-    [SerializeField] private GameObject cameraGameObject;
+    [SerializeField] private GameObject CameraGameObject;
     [SerializeField] private Rigidbody rb;
     private AudioSource _audioSource;
     private float _xRotation;
     private float sprintSpeed;
     private Transform cameraTransform;
     private bool canJump = true;
+    private Product previousProduct;
     private void Start()
     {
-        cameraTransform = cameraGameObject.transform;
+        cameraTransform = CameraGameObject.transform;
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -62,6 +63,39 @@ public class PlayerController : MonoBehaviour
         _xRotation += -rotationVerticalInput * sensetivity;
         _xRotation = Mathf.Clamp(_xRotation, -80f, 80f);
         cameraTransform.localEulerAngles = new Vector3(_xRotation, 0, 0);
+        
+        
+        
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 100.0f))
+        {
+            Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 100.0f, Color.yellow);
+            var product = hit.collider.GetComponentInParent<Product>();
+            
+            if (product != null)
+            {
+                if (product != this && product != previousProduct)
+                {
+                    product.OnHoverEnter();
+                    previousProduct = product;
+                }
+            }
+            else if (previousProduct != null)
+            {
+                previousProduct.OnHoverExit();
+                Debug.Log("Not");
+                previousProduct = null;
+            }
+        }
+        else
+        {
+            if (previousProduct != null)
+            {
+                previousProduct.OnHoverExit();
+                previousProduct = null;
+            }
+        }
+        
 
     }
     private void OnCollisionEnter(Collision other)

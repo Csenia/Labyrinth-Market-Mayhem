@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   sensetivity: 5
-  cameraGameObject: {fileID: 193167724217219493}
+  CameraGameObject: {fileID: 193167724217219493}
   rb: {fileID: 73427702495522796}
 --- !u!54 &73427702495522796
 Rigidbody:
