@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sensetivity = 5f;
     [SerializeField] private GameObject CameraGameObject;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Level level;
     private AudioSource _audioSource;
     private float _xRotation;
     private float sprintSpeed;
@@ -63,7 +65,18 @@ public class PlayerController : MonoBehaviour
         _xRotation += -rotationVerticalInput * sensetivity;
         _xRotation = Mathf.Clamp(_xRotation, -80f, 80f);
         cameraTransform.localEulerAngles = new Vector3(_xRotation, 0, 0);
-        
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+            if (previousProduct != null)
+            {
+                Debug.Log("Get");
+                CatchProduct(previousProduct);
+                previousProduct = null;
+            }
+        }
         
         
         RaycastHit hit;
@@ -74,8 +87,12 @@ public class PlayerController : MonoBehaviour
             
             if (product != null)
             {
-                if (product != this && product != previousProduct)
+                if (product != previousProduct)
                 {
+                    if (previousProduct != null)
+                    {
+                        previousProduct.OnHoverExit();
+                    }
                     product.OnHoverEnter();
                     previousProduct = product;
                 }
@@ -105,5 +122,18 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
     }
+
+    private void CatchProduct(Product product)
+    {
+        foreach (var task in level.Tasks)
+        {
+            if (task.ItemType == product.itemType)
+            {
+                task.Number--;
+            }
+        }
+        Destroy(product.gameObject);
+    }
+    
     
 }

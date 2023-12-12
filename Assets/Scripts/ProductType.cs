@@ -5,7 +5,9 @@ public enum ItemType
 {
     None,
     Apple,
-    Orange
+    Orange,
+    Banana, 
+    Avocado
 }
 
 public class ProductType : MonoBehaviour
