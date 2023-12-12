@@ -7,7 +7,14 @@ public enum ItemType
     Apple,
     Orange,
     Banana, 
-    Avocado
+    Avocado,
+    Cherry,
+    Lemon,
+    Peach,
+    Peanut,
+    Pear,
+    Strawberry,
+    Watermelon
 }
 
 public class ProductType : MonoBehaviour

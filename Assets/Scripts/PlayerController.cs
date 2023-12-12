@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         
         
         RaycastHit hit;
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 100.0f))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 10.0f))
         {
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 100.0f, Color.yellow);
             var product = hit.collider.GetComponentInParent<Product>();
