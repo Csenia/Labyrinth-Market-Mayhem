@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private ItemIcons _itemIcons;
     public static ScoreManager Instance;
     private TaskIcons[] _tasks;
-    //[SerializeField] private GameManager _gameManager;
+    [SerializeField] private GameManager _gameManager;
 
     void Awake()
     {
@@ -62,17 +62,17 @@ public class ScoreManager : MonoBehaviour
         }
         Destroy(newFlyingItem.gameObject);
         _tasks.AddOne();
-        //CheckWin();
+       CheckWin();
     }
-    //private void CheckWin()
-    //{
-    //    for (int i = 0; i < _tasks.Length; i++)
-    //    {
-    //        if (_tasks[i].CurrentScore != 0)
-    //        {
-    //            return;
-    //        }
-    //    }
-    //    _gameManager.Win();
-    //}
+    private void CheckWin()
+    {
+        for (int i = 0; i < _tasks.Length; i++)
+        {
+            if (_tasks[i].CurrentScore != 0)
+            {
+                return;
+            }
+        }
+        _gameManager.Win();
+    }
 }

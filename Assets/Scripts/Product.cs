@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Input = UnityEngine.Windows.Input;
 
-public class Product : ProductType
+public class Product : PassiveItem
 {
     [SerializeField] private Collider _collider;
 
@@ -26,5 +26,11 @@ public class Product : ProductType
         _outline.OutlineWidth = 0f;
 
     }
-   
+
+
+    public override void Affect()
+    {
+        base.Affect();
+        ScoreManager.Instance.AddScore(itemType, transform.position);
+    }
 }

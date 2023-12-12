@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
             if (task.ItemType == product.itemType)
             {
                 task.Number--;
+                product.Affect();
             }
         }
         Destroy(product.gameObject);
