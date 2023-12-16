@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     {
         _winWindow.SetActive(true);
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        Progress.Instance.SetLevel(currentSceneIndex - 1);
+        Progress.Instance.SetLevel(currentSceneIndex);
 
     }
 
@@ -21,11 +21,11 @@ public class GameManager : MonoBehaviour
 
     public void Home()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(Progress.Instance.Level + 1);
+        SceneManager.LoadScene(Progress.Instance.Level + 2);
     }
 }
